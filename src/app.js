@@ -19,6 +19,7 @@ app.use(
 
 app.use(express.static("public"));
 
+// CORS Configuration
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN?.split(", ") || "http://localhost:5173",
@@ -27,6 +28,11 @@ app.use(
     allowedHeaders: ["Authorization", "Content-Type"],
   }),
 );
+
+// Import the routes
+import healthCheckRoute from "./routes/healthCheck.routes.js";
+
+app.use("/api/v1/healthcheck", healthCheckRoute);
 
 app.get("/", (req, res) => {
   res.send("Welcome to my Project Management System!!");
