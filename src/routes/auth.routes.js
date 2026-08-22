@@ -4,6 +4,7 @@ import {
   loginUser,
   logoutUser,
   registerUser,
+  verifyEmail,
 } from "../controllers/auth.controllers.js";
 import { validate } from "../middlewares/validator.middleware.js";
 import {
@@ -21,5 +22,6 @@ router.route("/login").post(userLoginValidator(), validate, loginUser);
 // Secure Route
 router.route("/logout").post(verifyJWT, logoutUser);
 router.route("/current-user").get(verifyJWT, getCurrentUser);
+router.route("/users/verify-email/:verificationToken").get(verifyEmail);
 
 export default router;
