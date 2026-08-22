@@ -4,6 +4,7 @@ import {
   loginUser,
   logoutUser,
   registerUser,
+  resendEmailVerification,
   verifyEmail,
 } from "../controllers/auth.controllers.js";
 import { validate } from "../middlewares/validator.middleware.js";
@@ -18,10 +19,13 @@ const router = Router();
 // Unsecure Route
 router.route("/register").post(userRegisterValidator(), validate, registerUser);
 router.route("/login").post(userLoginValidator(), validate, loginUser);
+router.route("/users/verify-email/:verificationToken").get(verifyEmail);
 
 // Secure Route
 router.route("/logout").post(verifyJWT, logoutUser);
 router.route("/current-user").get(verifyJWT, getCurrentUser);
-router.route("/users/verify-email/:verificationToken").get(verifyEmail);
+router
+  .route("/resend-email-verification")
+  .post(verifyJWT, resendEmailVerification);
 
 export default router;
