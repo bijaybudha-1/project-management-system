@@ -3,6 +3,7 @@ import {
   getCurrentUser,
   loginUser,
   logoutUser,
+  refreshAccessToken,
   registerUser,
   resendEmailVerification,
   verifyEmail,
@@ -20,6 +21,7 @@ const router = Router();
 router.route("/register").post(userRegisterValidator(), validate, registerUser);
 router.route("/login").post(userLoginValidator(), validate, loginUser);
 router.route("/users/verify-email/:verificationToken").get(verifyEmail);
+router.route("/refresh-token").post(refreshAccessToken);
 
 // Secure Route
 router.route("/logout").post(verifyJWT, logoutUser);
