@@ -32,6 +32,7 @@ const forgotPasswordMailgenContent = (username, passwordResetURL) => {
         button: {
           color: "#22BC66",
           text: "Reset Password",
+          link: passwordResetURL,
         },
       },
       outro:
