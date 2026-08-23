@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  changedPassword,
   forgotPasswordRequest,
   getCurrentUser,
   loginUser,
@@ -12,6 +13,7 @@ import {
 } from "../controllers/auth.controllers.js";
 import { validate } from "../middlewares/validator.middleware.js";
 import {
+  userChangePasswordValidator,
   userForgotPasswordValidator,
   userLoginValidator,
   userRegisterValidator,
@@ -36,5 +38,8 @@ router.route("/current-user").get(verifyJWT, getCurrentUser);
 router
   .route("/resend-email-verification")
   .post(verifyJWT, resendEmailVerification);
+router
+  .route("/change-password")
+  .post(verifyJWT, userChangePasswordValidator(), validate, changedPassword);
 
 export default router;
