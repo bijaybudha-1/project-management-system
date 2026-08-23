@@ -13,6 +13,7 @@ import {
 } from "../controllers/auth.controllers.js";
 import { validate } from "../middlewares/validator.middleware.js";
 import {
+  resetForgotPasswordValidator,
   userChangePasswordValidator,
   userForgotPasswordValidator,
   userLoginValidator,
@@ -30,7 +31,9 @@ router.route("/refresh-token").post(refreshAccessToken);
 router
   .route("/forgot-password")
   .post(userForgotPasswordValidator(), validate, forgotPasswordRequest);
-router.route("/reset-password/:resetToken").post(resetForgotPassword);
+router
+  .route("/reset-password/:resetToken")
+  .post(resetForgotPasswordValidator(), validate, resetForgotPassword);
 
 // Secure Route
 router.route("/logout").post(verifyJWT, logoutUser);
